@@ -3,9 +3,9 @@ import { Router } from "express";
 import { getErrorMessage } from "../utils/errorUtils.js";
 import { adminService } from "../services/index.js";
 
-const studentController = Router();
+const adminController = Router();
 
-studentController.post("/register", async (req, res) => {
+adminController.post("/register", async (req, res) => {
     const userData = req.body;
 
     try {
@@ -16,7 +16,7 @@ studentController.post("/register", async (req, res) => {
     }
 });
 
-studentController.post("/login", async (req, res) => {
+adminController.post("/login", async (req, res) => {
     const userData = req.body;
 
     try {
@@ -27,8 +27,8 @@ studentController.post("/login", async (req, res) => {
     }
 });
 
-studentController.get("/logout", (req, res) => {
+adminController.get("/logout", (req, res) => {
     res.status(204).json({ ok: true });
 });
 
-export default studentController;
+export default adminController;
