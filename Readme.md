@@ -1,4 +1,4 @@
-# Pet Shelter API
+# Scool-puzzels-and-tasks Project API
 
 This is an **Express.js** server application implementing a backend API for a **school-puzzles-and-tasks**.
 
