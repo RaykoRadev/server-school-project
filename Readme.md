@@ -33,20 +33,35 @@ It manages users and a pets collection (user-generated content), using **MongoDB
   accessToken: string,
   role: string,
   username: string,
-  admin: ObjectId
+  teacherId: ObjectId
+  classId: ObjectId
 }`
+-   register link: `.../student/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
 
-### Admin Schema
+### Teacher Schema
 
 -   `username`: min length enforced
 -   `code`: hashed string, min length enforced
 -   Codes are hashed automatically before saving
+-   DB retyrns: `{
+  username: string,
+  code: string,
+  role: 'teacher',
+  classes: [{
+  name: string,
+  subjects: [{text: string, link: string}],
+  \_id: ObjectId,
+  classId: ObjectId
+  },]
+}`
+
 -   Request returns: `{
   _id: string,
   accessToken: string,
   role: string,
   username: string
 }`
+-   register link: `.../admin/register` (body: {username: ...., code:....}) throuth postman
 
 <!-- ### Animals Schema (Pet/Post)
 
@@ -67,3 +82,59 @@ git clone <repository-url>
 cd <project-folder>
 npm install
 ```
+
+<!--
+            {
+                classId: ObjectId(),
+                name: "class1",
+                subjects: [
+                    { name: "bg", links: [linksSchema] },
+                    { name: "math", links: [linksSchema] },
+                    { name: "eng", links: [linksSchema] },
+                    { name: "music", links: [linksSchema] },
+                    { name: "technology", links: [linksSchema] },
+                    { name: "physicalExercises", links: [linksSchema] },
+                    { name: "rodinoznanie", links: [linksSchema] },
+                ],
+            },
+            {
+                classId: ObjectId(),
+                name: "class2",
+                subjects: [
+                    { name: "bg", links: [linksSchema] },
+                    { name: "math", links: [linksSchema] },
+                    { name: "eng", links: [linksSchema] },
+                    { name: "music", links: [linksSchema] },
+                    { name: "technology", links: [linksSchema] },
+                    { name: "physicalExercises", links: [linksSchema] },
+                    { name: "rodinoznanie", links: [linksSchema] },
+                ],
+            },
+            {
+                classId: ObjectId(),
+                name: "class3",
+                subjects: [
+                    { name: "bg", links: [linksSchema] },
+                    { name: "math", links: [linksSchema] },
+                    { name: "eng", links: [linksSchema] },
+                    { name: "music", links: [linksSchema] },
+                    { name: "technology", links: [linksSchema] },
+                    { name: "physicalExercises", links: [linksSchema] },
+                    { name: "human&nature", links: [linksSchema] },
+                    { name: "human&society", links: [linksSchema] },
+                ],
+            },
+            {
+                classId: ObjectId(),
+                name: "class4",
+                subjects: [
+                    { name: "bg", links: [linksSchema] },
+                    { name: "math", links: [linksSchema] },
+                    { name: "eng", links: [linksSchema] },
+                    { name: "music", links: [linksSchema] },
+                    { name: "technology", links: [linksSchema] },
+                    { name: "physicalExercises", links: [linksSchema] },
+                    { name: "human&nature", links: [linksSchema] },
+                    { name: "human&society", links: [linksSchema] },
+                ],
+            }, -->
