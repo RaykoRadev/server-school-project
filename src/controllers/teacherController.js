@@ -1,34 +1,34 @@
 import { Router } from "express";
 
 import { getErrorMessage } from "../utils/errorUtils.js";
-import { adminService } from "../services/index.js";
+import { teacherService } from "../services/index.js";
 
-const adminController = Router();
+const teacherController = Router();
 
-adminController.post("/register", async (req, res) => {
+teacherController.post("/register", async (req, res) => {
     const userData = req.body;
 
     try {
-        const user = await adminService.register(userData);
+        const user = await teacherService.register(userData);
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
     }
 });
 
-adminController.post("/login", async (req, res) => {
+teacherController.post("/login", async (req, res) => {
     const userData = req.body;
 
     try {
-        const user = await adminService.login(userData);
+        const user = await teacherService.login(userData);
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
     }
 });
 
-adminController.get("/logout", (req, res) => {
+teacherController.get("/logout", (req, res) => {
     res.status(204).json({ ok: true });
 });
 
-export default adminController;
+export default teacherController;
