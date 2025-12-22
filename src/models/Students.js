@@ -1,8 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcrypt";
 
-//todo check the fields that i will need for reg and login
-
 const studentSchema = new Schema(
     {
         username: {
@@ -17,17 +15,21 @@ const studentSchema = new Schema(
         },
         role: {
             type: String,
-            // enum: ["teacher", "student"],
             default: "student",
         },
-        admin: [
-            {
-                type: Types.ObjectId,
-                ref: "Admiin",
-            },
-        ],
+        teacherId: {
+            type: Types.ObjectId,
+            ref: "Teacher",
+            required: true,
+        },
+
+        classId: {
+            type: Types.ObjectId,
+            // ref: "Teacher",
+            required: true,
+        },
     },
-    { timestamp: true } //todo in the others models
+    { timestamp: true }
 );
 
 studentSchema.pre("save", async function () {

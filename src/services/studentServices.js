@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 
-import Student from "../models/Students.js";
 import { generateAuthToken } from "../utils/userUtils.js";
+import Student from "../models/Students.js";
+import Teacher from "../models/Teacher.js";
 
 export async function register(userData) {
     // const email = userData.email;
@@ -17,6 +18,8 @@ export async function register(userData) {
         username: user.username,
         role: user.role,
         _id: user.id,
+        teacherId: user.teacherId,
+        classId: user.classId,
     };
 }
 
@@ -31,12 +34,28 @@ export async function login(userData) {
     if (!isMatch) {
         throw new Error("Invalid email or code!");
     }
-
+    console.log(user);
     const token = generateAuthToken(user);
     return {
         accessToken: token,
         username: user.username,
         role: user.role,
         _id: user.id,
+        teacherId: user.teacherId,
+        classId: user.classId,
     };
+}
+
+export async function getAll(params) {
+    const data = await Teacher.findOne(
+        {
+            _id: Student.teacherId,
+            "classes.classId": Student.classId,
+        },
+        {
+            "classes.$": 1,
+        }
+    );
+
+    return data;
 }
