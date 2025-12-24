@@ -3,11 +3,11 @@ import bcrypt from "bcrypt";
 import { generateAuthToken } from "../utils/userUtils.js";
 import Teacher from "../models/Teacher.js";
 
-const defaultSubjects = [
-    { name: "bg", links: [] },
-    { name: "math", links: [] },
-    { name: "eng", links: [] },
-];
+// const defaultSubjects = [
+//     { name: "bg", links: [], visualizationName: 'Български език и Литература' },
+//     { name: "math", links: [], visualizationName: 'Математика' },
+//     { name: "eng", links: [], visualizationName: 'Английски език' },
+// ];
 
 export async function register(userData) {
     // const email = userData.email;
@@ -23,51 +23,51 @@ export async function register(userData) {
             {
                 name: "class1",
                 subjects: [
-                    { name: "bg", links: [] },
-                    { name: "math", links: [] },
-                    { name: "eng", links: [] },
-                    { name: "music", links: [] },
-                    { name: "technology", links: [] },
-                    { name: "physicalExercises", links: [] },
-                    { name: "rodinoznanie", links: [] },
+                    { name: "bg", links: [], visualizationName: 'Български език и Литература' },
+                    { name: "math", links: [], visualizationName: 'Математика' },
+                    { name: "eng", links: [], visualizationName: 'Английски език' },
+                    { name: "music", links: [], visualizationName: 'Музика' },
+                    { name: "technology", links: [], visualizationName: 'Технологии и предприемачество' },
+                    { name: "physicalExercises", links: [], visualizationName: 'ФВС' },
+                    { name: "rodinoznanie", links: [], visualizationName: 'Родинознание' },
                 ],
             },
             {
                 name: "class2",
                 subjects: [
-                    { name: "bg", links: [] },
-                    { name: "math", links: [] },
-                    { name: "eng", links: [] },
-                    { name: "music", links: [] },
-                    { name: "technology", links: [] },
-                    { name: "physicalExercises", links: [] },
-                    { name: "rodinoznanie", links: [] },
+                    { name: "bg", links: [], visualizationName: 'Български език и Литература' },
+                    { name: "math", links: [], visualizationName: 'Математика' },
+                    { name: "eng", links: [], visualizationName: 'Английски език' },
+                    { name: "music", links: [], visualizationName: 'Музика' },
+                    { name: "technology", links: [], visualizationName: 'Технологии и предприемачество' },
+                    { name: "physicalExercises", links: [], visualizationName: 'ФВС' },
+                    { name: "rodinoznanie", links: [], visualizationName: 'Родинознание' },
                 ],
             },
             {
                 name: "class3",
                 subjects: [
-                    { name: "bg", links: [] },
-                    { name: "math", links: [] },
-                    { name: "eng", links: [] },
-                    { name: "music", links: [] },
-                    { name: "technology", links: [] },
-                    { name: "physicalExercises", links: [] },
-                    { name: "human&nature", links: [] },
-                    { name: "human&society", links: [] },
+                    { name: "bg", links: [], visualizationName: 'Български език и Литература' },
+                    { name: "math", links: [], visualizationName: 'Математика' },
+                    { name: "eng", links: [], visualizationName: 'Английски език' },
+                    { name: "music", links: [], visualizationName: 'Музика' },
+                    { name: "technology", links: [], visualizationName: 'Технологии и предприемачество' },
+                    { name: "physicalExercises", links: [], visualizationName: 'ФВС' },
+                    { name: "human&nature", links: [], visualizationName: 'Човекът и природата' },
+                    { name: "human&society", links: [], visualizationName: 'Човекът и обществото'  },
                 ],
             },
             {
                 name: "class4",
                 subjects: [
-                    { name: "bg", links: [] },
-                    { name: "math", links: [] },
-                    { name: "eng", links: [] },
-                    { name: "music", links: [] },
-                    { name: "technology", links: [] },
-                    { name: "physicalExercises", links: [] },
-                    { name: "human&nature", links: [] },
-                    { name: "human&society", links: [] },
+                    { name: "bg", links: [], visualizationName: 'Български език и Литература' },
+                    { name: "math", links: [], visualizationName: 'Математика' },
+                    { name: "eng", links: [], visualizationName: 'Английски език' },
+                    { name: "music", links: [], visualizationName: 'Музика' },
+                    { name: "technology", links: [], visualizationName: 'Технологии и предприемачество' },
+                    { name: "physicalExercises", links: [], visualizationName: 'ФВС' },
+                    { name: "human&nature", links: [], visualizationName: 'Човекът и природата' },
+                    { name: "human&society", links: [], visualizationName: 'Човекът и обществото'  },
                 ],
             },
         ],

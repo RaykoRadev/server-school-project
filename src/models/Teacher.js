@@ -12,6 +12,7 @@ const linksSchema = new Schema(
 const subjectShema = new Schema({
     name: { type: String, required: true },
     links: [linksSchema],
+    visualizationName: {type: String,required: true}
 });
 
 const classesSchema = new Schema({
