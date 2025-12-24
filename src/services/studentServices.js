@@ -8,7 +8,7 @@ export async function register(userData) {
     // const email = userData.email;
     const existingUser = await Student.findOne({ username: userData.username });
     if (existingUser) {
-        throw new Error("The email already exists!");
+        throw new Error("The username already exists!");
     }
 
     const user = await Student.create(userData);
@@ -16,6 +16,7 @@ export async function register(userData) {
     return {
         accessToken: token,
         username: user.username,
+        code: user.code,
         role: user.role,
         _id: user.id,
         teacherId: user.teacherId,
@@ -27,13 +28,16 @@ export async function login(userData) {
     const user = await Student.findOne({ username: userData.username });
 
     if (!user) {
-        throw new Error("Invalid email or code!");
+        throw new Error("Invalid username or code!");
     }
 
-    const isMatch = await bcrypt.compare(userData.code, user.code);
+    //* If hashing in DB is needed swithe the bottom 2 rows
+    // const isMatch = await bcrypt.compare(userData.code, user.code);
+    const isMatch = userData.code === user.code;
     if (!isMatch) {
-        throw new Error("Invalid email or code!");
+        throw new Error("Invalid username or code!");
     }
+
     console.log(user);
     const token = generateAuthToken(user);
     return {
