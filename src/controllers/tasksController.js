@@ -16,6 +16,18 @@ tasksController.get("/getAllClasses", async (req, res) => {
     }
 });
 
+tasksController.get("/getAllStudents", async (req, res) => {
+    const teacherId = req.user.id;
+    console.log("req: ", req.user.id);
+
+    try {
+        const data = await tasksService.getAllStudents(teacherId);
+        res.json(data);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
 //creating links
 tasksController.post("/createLink", async (req, res) => {
     if (req.user.role !== "teacher") {

@@ -1,13 +1,20 @@
+import Student from "../models/Students.js";
 import Teacher from "../models/Teacher.js";
 
-//todo base links need to make them works
 export async function getAllClasses(teacherId) {
     const data = await Teacher.findById(teacherId, { classes: 1, _id: 0 });
 
     return data.classes;
 }
+
+export async function getAllStudents(teacherId) {
+    const data = await Student.find({ teacherId }); // if its needed can populate class
+
+    return data;
+}
+
 export async function createOne(linksData) {
-   const data = await Teacher.updateOne(
+    const data = await Teacher.updateOne(
         {
             _id: linksData._id, //teacher ID
             "classes.classId": linksData.classId,
@@ -22,12 +29,17 @@ export async function createOne(linksData) {
             },
         },
         {
-            arrayFilters: [{ "c.classId": linksData.classId }, { "s.name": linksData.subject }],
+            arrayFilters: [
+                { "c.classId": linksData.classId },
+                { "s.name": linksData.subject },
+            ],
         }
     );
 
-    return data
+    return data;
 }
+
+//todo base links need to make them works
 
 export async function editOne(data) {
     await Teacher.updateOne(
