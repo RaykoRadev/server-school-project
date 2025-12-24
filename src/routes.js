@@ -6,7 +6,7 @@ import teacherController from "./controllers/teacherController.js";
 const routes = Router();
 
 routes.use("/student", studentController);
-routes.use("/admin", teacherController);
+routes.use("/teacher", teacherController);
 routes.use("/links", tasksController);
 // routes.use("/animals", animalController);
 

@@ -17,13 +17,13 @@ tasksController.get("/getAllClasses", async (req, res) => {
 });
 
 //creating links
-tasksController.post("/create", async (req, res) => {
+tasksController.post("/createLink", async (req, res) => {
     if (req.user.role !== "teacher") {
         throw new Error("Forbidden");
     }
     try {
         const data = req.body;
-        const link = await tasksService.create(data);
+        const link = await tasksService.createOne(data);
         res.json(link);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });

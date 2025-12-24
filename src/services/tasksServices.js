@@ -6,25 +6,27 @@ export async function getAllClasses(teacherId) {
 
     return data.classes;
 }
-export async function createOne(data) {
-    await Teacher.updateOne(
+export async function createOne(linksData) {
+   const data = await Teacher.updateOne(
         {
-            _id: teacherId,
-            "classes.classId": classId,
-            "classes.subjects.name": subjectName,
+            _id: linksData._id, //teacher ID
+            "classes.classId": linksData.classId,
+            "classes.subjects.name": linksData.subject,
         },
         {
             $push: {
                 "classes.$[c].subjects.$[s].links": {
-                    text: "Algebra basics",
-                    link: "https://example.com",
+                    text: linksData.text,
+                    link: linksData.link,
                 },
             },
         },
         {
-            arrayFilters: [{ "c.classId": classId }, { "s.name": subjectName }],
+            arrayFilters: [{ "c.classId": linksData.classId }, { "s.name": linksData.subject }],
         }
     );
+
+    return data
 }
 
 export async function editOne(data) {
