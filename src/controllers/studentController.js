@@ -33,6 +33,7 @@ studentController.get("/logout", (req, res) => {
 
 studentController.get("/links", async (req, res) => {
     //todo need params: teacherId and classId
+
     try {
         const user = await userService.getAll();
         res.status(201).json(user);

@@ -41,6 +41,17 @@ const studentSchema = new Schema(
             default: () => new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days from now
             index: { expires: 0 }, // delete when this date is reached
         },
+        sessions: [
+            {
+                loginAt: { type: Date, default: Date.now },
+                // durationSeconds: { type: Number, default: 0 },
+            },
+        ],
+        subjectUsage: {
+            type: Map,
+            of: Number, // Stores key-value pairs like { "Quiz": 5, "Chat": 12 }
+            default: {},
+        },
     },
     { timestamps: true }
 );

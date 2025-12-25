@@ -5,7 +5,7 @@ import { tasksService } from "../services/index.js";
 const tasksController = Router();
 
 tasksController.get("/getAllClasses", async (req, res) => {
-    const teacherId = req.user.id;
+    // const teacherId = req.user.id;
     console.log("req: ", req.user.id);
 
     try {

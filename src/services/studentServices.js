@@ -38,6 +38,9 @@ export async function login(userData) {
         throw new Error("Invalid username or code!");
     }
 
+    user.sessions.unshift({ loginAt: new Date() });
+    await user.save();
+
     console.log(user);
     const token = generateAuthToken(user);
     return {

@@ -34,7 +34,10 @@ It manages users and a pets collection (user-generated content), using **MongoDB
   role: string,
   username: string,
   teacherId: ObjectId
-  classId: ObjectId
+  classId: ObjectId,
+  expiredAt: date,
+  sesions: Array with {loginAt, durationSeconds?}
+  subjectUsage: Object
 }`
 -   register link: `.../student/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
 
@@ -63,15 +66,10 @@ It manages users and a pets collection (user-generated content), using **MongoDB
 }`
 -   register link: `.../admin/register` (body: {username: ...., code:....}) throuth postman
 
-<!-- ### Animals Schema (Pet/Post)
+### Links:
 
--   `name`: min length enforced
--   `description`: optional string
--   `age`: required number
--   `imageUrl`: required string, min length enforced
--   `author`: reference to the User who created the post
--   `likes`: array of references to User documents who liked the post
--   Timestamps for creation and updates -->
+http://localhost:3000/links/getAllStudents -> array with all students
+http://localhost:3000/links/getAllClasses -> array with all classes
 
 ---
 
@@ -82,59 +80,3 @@ git clone <repository-url>
 cd <project-folder>
 npm install
 ```
-
-<!--
-            {
-                classId: ObjectId(),
-                name: "class1",
-                subjects: [
-                    { name: "bg", links: [linksSchema] },
-                    { name: "math", links: [linksSchema] },
-                    { name: "eng", links: [linksSchema] },
-                    { name: "music", links: [linksSchema] },
-                    { name: "technology", links: [linksSchema] },
-                    { name: "physicalExercises", links: [linksSchema] },
-                    { name: "rodinoznanie", links: [linksSchema] },
-                ],
-            },
-            {
-                classId: ObjectId(),
-                name: "class2",
-                subjects: [
-                    { name: "bg", links: [linksSchema] },
-                    { name: "math", links: [linksSchema] },
-                    { name: "eng", links: [linksSchema] },
-                    { name: "music", links: [linksSchema] },
-                    { name: "technology", links: [linksSchema] },
-                    { name: "physicalExercises", links: [linksSchema] },
-                    { name: "rodinoznanie", links: [linksSchema] },
-                ],
-            },
-            {
-                classId: ObjectId(),
-                name: "class3",
-                subjects: [
-                    { name: "bg", links: [linksSchema] },
-                    { name: "math", links: [linksSchema] },
-                    { name: "eng", links: [linksSchema] },
-                    { name: "music", links: [linksSchema] },
-                    { name: "technology", links: [linksSchema] },
-                    { name: "physicalExercises", links: [linksSchema] },
-                    { name: "human&nature", links: [linksSchema] },
-                    { name: "human&society", links: [linksSchema] },
-                ],
-            },
-            {
-                classId: ObjectId(),
-                name: "class4",
-                subjects: [
-                    { name: "bg", links: [linksSchema] },
-                    { name: "math", links: [linksSchema] },
-                    { name: "eng", links: [linksSchema] },
-                    { name: "music", links: [linksSchema] },
-                    { name: "technology", links: [linksSchema] },
-                    { name: "physicalExercises", links: [linksSchema] },
-                    { name: "human&nature", links: [linksSchema] },
-                    { name: "human&society", links: [linksSchema] },
-                ],
-            }, -->
