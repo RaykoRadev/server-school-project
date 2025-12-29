@@ -7,6 +7,21 @@ export async function getAllClasses(teacherId) {
     return data.classes;
 }
 
+export async function getOneClass(teacherId, classId) {
+    const data = await Teacher.findOne(
+        {
+            _id: teacherId,
+            "classes.classId": classId,
+        },
+        {
+            "classes.$": 1,
+            _id: 0,
+        }
+    );
+
+    return data;
+}
+
 export async function getAllStudents(teacherId) {
     const data = await Student.find({ teacherId }); // if its needed can populate class
 

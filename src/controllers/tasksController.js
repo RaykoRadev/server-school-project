@@ -4,12 +4,25 @@ import { tasksService } from "../services/index.js";
 
 const tasksController = Router();
 
-tasksController.get("/getAllClasses", async (req, res) => {
-    // const teacherId = req.user.id;
+tasksController.get("/getAllClasses/:teacherId", async (req, res) => {
+    const teacherId = req.params.teacherId;
     console.log("req: ", req.user.id);
 
     try {
         const data = await tasksService.getAllClasses(teacherId);
+        res.json(data);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
+tasksController.get("/getOneClass/:teacherId/:classId", async (req, res) => {
+    const teacherId = req.params.teacherId;
+    const classId = req.params.classId;
+    console.log("req: ", req.user.id);
+
+    try {
+        const data = await tasksService.getOneClass(teacherId, classId);
         res.json(data);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
