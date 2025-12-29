@@ -53,7 +53,7 @@ export async function login(userData) {
     };
 }
 
-export async function getAll(params) {
+export async function getAllStudents(params) {
     const data = await Teacher.findOne(
         {
             _id: Student.teacherId,

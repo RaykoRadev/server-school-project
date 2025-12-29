@@ -35,7 +35,7 @@ studentController.get("/links", async (req, res) => {
     //todo need params: teacherId and classId
 
     try {
-        const user = await userService.getAll();
+        const user = await userService.getAllStudents();
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
