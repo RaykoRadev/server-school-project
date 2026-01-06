@@ -54,7 +54,7 @@ studentController.delete("/:teacherId/:studentId/delete", async (req, res) => {
     }
 });
 
-studentController.put("/:teacherId/:studentId/edit", async (req, res) => {
+studentController.patch("/:teacherId/:studentId/edit", async (req, res) => {
     const teacherId = req.params.teacherId;
     const studentId = req.params.studentId;
     const data = req.body;
