@@ -66,3 +66,11 @@ export async function getAllStudents(params) {
 
     return data;
 }
+
+export async function deleteStudent(teacherId, studentId) {
+    const data = await Student.findOneAndDelete({
+        _id: studentId,
+        teacherId: teacherId,
+    });
+    return data;
+}

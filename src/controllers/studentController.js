@@ -42,4 +42,16 @@ studentController.get("/links", async (req, res) => {
     }
 });
 
+studentController.delete("/:teacherId/:studentId/delete", async (req, res) => {
+    const teacherId = req.params.teacherId;
+    const studentId = req.params.studentId;
+
+    try {
+        const user = await userService.deleteStudent(teacherId, studentId);
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
 export default studentController;

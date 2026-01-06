@@ -40,6 +40,8 @@ It manages users and a pets collection (user-generated content), using **MongoDB
   subjectUsage: Object
 }`
 -   register link: `.../student/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
+-   login link: `.../login/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
+-   delete link: `.../:teacherId/:studentId/delete` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
 
 ### Teacher Schema
 
