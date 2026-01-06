@@ -67,4 +67,16 @@ studentController.put("/:teacherId/:studentId/edit", async (req, res) => {
     }
 });
 
+studentController.get("/:teacherId/:studentId", async (req, res) => {
+    const teacherId = req.params.teacherId;
+    const studentId = req.params.studentId;
+
+    try {
+        const user = await userService.getOneStudent(studentId);
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
 export default studentController;

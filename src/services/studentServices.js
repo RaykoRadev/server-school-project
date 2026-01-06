@@ -85,3 +85,10 @@ export async function editStudent(teacherId, studentId, studentData) {
     );
     return data;
 }
+
+export async function getOneStudent(studentId) {
+    const data = await Student.findById({
+        _id: studentId,
+    });
+    return data;
+}
