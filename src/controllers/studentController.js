@@ -54,4 +54,17 @@ studentController.delete("/:teacherId/:studentId/delete", async (req, res) => {
     }
 });
 
+studentController.put("/:teacherId/:studentId/edit", async (req, res) => {
+    const teacherId = req.params.teacherId;
+    const studentId = req.params.studentId;
+    const data = req.body;
+
+    try {
+        const user = await userService.editStudent(teacherId, studentId, data);
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
 export default studentController;

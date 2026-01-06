@@ -74,3 +74,14 @@ export async function deleteStudent(teacherId, studentId) {
     });
     return data;
 }
+
+export async function editStudent(teacherId, studentId, studentData) {
+    const data = await Student.findOneAndUpdate(
+        {
+            _id: studentId,
+            teacherId: teacherId,
+        },
+        studentData
+    );
+    return data;
+}
