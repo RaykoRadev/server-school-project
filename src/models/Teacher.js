@@ -1,25 +1,25 @@
 import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcrypt";
 
-const linksSchema = new Schema(
-    {
-        text: { type: String, required: true },
-        link: { type: String, required: true },
-    },
-    { _id: false }
-);
+const linksSchema = new Schema({
+    text: { type: String, required: true },
+    link: { type: String, required: true },
+});
 
 const subjectShema = new Schema({
     name: { type: String, required: true },
     links: [linksSchema],
-    visualizationName: {type: String,required: true}
+    visualizationName: { type: String, required: true },
 });
 
-const classesSchema = new Schema({
-    classId: { type: Types.ObjectId, default: () => new Types.ObjectId() },
-    name: { type: String, required: true },
-    subjects: [subjectShema],
-});
+const classesSchema = new Schema(
+    {
+        classId: { type: Types.ObjectId, default: () => new Types.ObjectId() },
+        name: { type: String, required: true },
+        subjects: [subjectShema],
+    },
+    { _id: false }
+);
 
 const teacherSchema = new Schema(
     {
