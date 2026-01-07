@@ -54,6 +54,29 @@ export async function createOne(linksData) {
     return data;
 }
 
+export async function getOneLink(teacherId, classId, subjectId, linkId) {
+    const data = await Teacher.aggregate([
+        { $match: { _id: teacherId } },
+
+        { $unwind: "$classes" },
+        { $match: { "classes.classId": classId } },
+
+        { $unwind: "$classes.subjects" },
+        { $match: { "classes.subjects._id": subjectId } },
+
+        { $unwind: "$classes.subjects.links" },
+        { $match: { "classes.subjects.links._id": linkId } },
+
+        {
+            $replaceRoot: {
+                newRoot: "$classes.subjects.links",
+            },
+        },
+    ]);
+
+    return data[0];
+}
+
 //todo base links need to make them works
 
 export async function editOne(data) {
