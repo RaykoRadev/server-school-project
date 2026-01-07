@@ -55,6 +55,37 @@ tasksController.post("/createLink", async (req, res) => {
     }
 });
 
+tasksController.delete(
+    "/:classId/:subjectId/:linkId/delete",
+    async (req, res) => {
+        const teacherId = req.user.id;
+        const classId = req.params.classId;
+        const subjectId = req.params.subjectId;
+        const linkId = req.params.linkId;
+
+        console.log("teacherId: ", teacherId);
+        console.log("classId: ", classId);
+        console.log("subId: ", subjectId);
+        console.log("linkId: ", linkId);
+
+        try {
+            const link = await tasksService.deleteOne(
+                teacherId,
+                classId,
+                subjectId,
+                linkId
+            );
+            if (link.modifiedCount === 0) {
+                return res.status(404).json({ message: "Link not found" });
+            }
+
+            res.status(200).json({ message: "Link deleted successfully" });
+        } catch (err) {
+            res.status(400).json({ message: getErrorMessage(err) });
+        }
+    }
+);
+
 export default tasksController;
 
 //sugdestet links

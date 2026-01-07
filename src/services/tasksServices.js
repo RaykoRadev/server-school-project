@@ -78,11 +78,9 @@ export async function editOne(data) {
     );
 }
 
-export async function deleteOne(data) {
-    await Teacher.updateOne(
-        {
-            _id: teacherId,
-        },
+export async function deleteOne(teacherId, classId, subjectId, linkId) {
+    const data = await Teacher.updateOne(
+        { _id: teacherId },
         {
             $pull: {
                 "classes.$[c].subjects.$[s].links": {
@@ -91,7 +89,9 @@ export async function deleteOne(data) {
             },
         },
         {
-            arrayFilters: [{ "c.classId": classId }, { "s.name": subjectName }],
+            arrayFilters: [{ "c.classId": classId }, { "s._id": subjectId }],
         }
     );
+
+    return data;
 }
