@@ -114,6 +114,22 @@ tasksController.get(
     }
 );
 
+tasksController.put("/:classId/:subjectId/:linkId/edit", async (req, res) => {
+    const teacherId = req.user.id;
+    const classId = req.params.classId;
+    const subjectId = req.params.subjectId;
+    const linkId = req.params.linkId;
+    const data = req.body;
+
+    try {
+        const link = await tasksService.editOneLink(teacherId, linkId, data);
+
+        res.status(200).json(link);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
 export default tasksController;
 
 //sugdestet links

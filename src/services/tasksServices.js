@@ -77,28 +77,28 @@ export async function getOneLink(teacherId, classId, subjectId, linkId) {
     return data[0];
 }
 
-//todo base links need to make them works
-
-export async function editOne(data) {
-    await Teacher.updateOne(
+export async function editOneLink(teacherId, linkId, data) {
+    console.log(data);
+    const link = await Teacher.updateOne(
         {
             _id: teacherId,
         },
         {
             $set: {
-                "classes.$[c].subjects.$[s].links.$[l].text": "Updated text",
-                "classes.$[c].subjects.$[s].links.$[l].link":
-                    "https://new-link.com",
+                "classes.$[c].subjects.$[s].links.$[l].text": data.text,
+                "classes.$[c].subjects.$[s].links.$[l].link": data.link,
             },
         },
         {
             arrayFilters: [
-                { "c.classId": classId },
-                { "s.name": subjectName },
+                { "c.classId": data.classId },
+                { "s.name": data.subject },
                 { "l._id": linkId },
             ],
         }
     );
+
+    return link;
 }
 
 export async function deleteOne(teacherId, classId, subjectId, linkId) {
