@@ -9,7 +9,9 @@ import globalErrorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
 
-initDatabase();
+if (process.env.NODE_ENV !== "production") {
+    initDatabase();
+}
 
 app.use(cors());
 
