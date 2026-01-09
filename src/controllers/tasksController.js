@@ -116,8 +116,6 @@ tasksController.get(
 
 tasksController.put("/:classId/:subjectId/:linkId/edit", async (req, res) => {
     const teacherId = req.user.id;
-    const classId = req.params.classId;
-    const subjectId = req.params.subjectId;
     const linkId = req.params.linkId;
     const data = req.body;
 
