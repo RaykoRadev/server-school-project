@@ -13,7 +13,7 @@ async function initDatabase() {
     if (cashed.conn) return cashed.conn;
 
     if (!cashed.promise) {
-        const dbName = process.env.DB_NAME || "school-online-tasks";
+        const dbName = "school-online-tasks";
 
         cashed.promise = mongoose
             .connect(process.env.DB_URL, {
