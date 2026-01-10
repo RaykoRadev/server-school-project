@@ -1,0 +1,17 @@
+name: Keep Railway Server Warm
+
+on:
+  schedule:
+    # Mon–Fri: 13:00–22:55 (every 5 minutes)
+    - cron: "*/5 13-22 * * 1-5"
+
+    # Sat–Sun: 08:00–22:55 (every 5 minutes)
+    - cron: "*/5 8-22 * * 6,0"
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Railway Server
+        run: |
+          curl -s https://server-school-project-production.up.railway.app > /dev/null
