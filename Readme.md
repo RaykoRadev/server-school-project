@@ -4,6 +4,17 @@ This is an **Express.js** server application implementing a backend API for a **
 
 It manages users and a pets collection (user-generated content), using **MongoDB** with **Mongoose** for data persistence.
 
+Deployed version on: https://server-school-project-production.up.railway.app
+
+schedule (translated to CRON)
+Weekdays (Mon–Fri): 13:00–23:00
+
+→ Every 5 minutes between 13–22 (23 excluded in cron)
+
+Weekends (Sat–Sun): 08:00–23:00
+
+→ Every 5 minutes between 8–22
+
 ---
 
 ## Features
@@ -40,8 +51,10 @@ It manages users and a pets collection (user-generated content), using **MongoDB
   subjectUsage: Object
 }`
 -   register link: `.../student/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
--   login link: `.../login/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
--   delete link: `.../:teacherId/:studentId/delete` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
+-   login link: `.../student/login` (body: {username: ..., code: ...})
+-   delete link: `.../:teacherId/:studentId/delete`
+-   edit link: `.../student/:teacherId/:studentId/edit` (body: {username: ..., code: ...})
+-   get one student link: `.../student/:teacherId/:studentId`
 
 ### Teacher Schema
 
@@ -67,11 +80,19 @@ It manages users and a pets collection (user-generated content), using **MongoDB
   username: string
 }`
 -   register link: `.../admin/register` (body: {username: ...., code:....}) throuth postman
+-   register link: `.../teacher/login` (body: {username: ...., code:....})
 
 ### Links:
 
 http://localhost:3000/links/getAllStudents -> array with all students
-http://localhost:3000/links/getAllClasses -> array with all classes
+
+http://localhost:3000/links/getAllClasses/:teacherId -> array with all classes
+http://localhost:3000/links/getOneClass/:teacherId/:classId -> object with one class
+
+http://localhost:3000/links/createLink -> object with created link
+http://localhost:3000/links/:classId/:subjectId/:linkId/delete -> object with info
+http://localhost:3000/links/getOneLink/:classId/:subjectId/:linkId -> object with one link
+http://localhost:3000/links/:classId/:subjectId/:linkId/edit-> object with edited link
 
 ---
 

@@ -35,6 +35,12 @@ const studentSchema = new Schema(
             // ref: "Teacher",
             required: true,
         },
+
+        avatar: {
+            type: String,
+            default:
+                "https://i.ibb.co/SwRsS4mn/adorable-baby-penguin-illustration-1308-181506.avif",
+        },
         // 1. Move expireAt to its own top-level field
         expireAt: {
             type: Date,

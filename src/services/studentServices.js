@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { generateAuthToken } from "../utils/userUtils.js";
 import Student from "../models/Students.js";
 import Teacher from "../models/Teacher.js";
+import Avatar from "../models/Avatars.js";
 
 export async function register(userData) {
     // const email = userData.email;
@@ -21,6 +22,7 @@ export async function register(userData) {
         _id: user.id,
         teacherId: user.teacherId,
         classId: user.classId,
+        avatar: user.avatar,
     };
 }
 
@@ -50,6 +52,7 @@ export async function login(userData) {
         _id: user.id,
         teacherId: user.teacherId,
         classId: user.classId,
+        avatar: user.avatar,
     };
 }
 
@@ -90,5 +93,15 @@ export async function getOneStudent(studentId) {
     const data = await Student.findById({
         _id: studentId,
     });
+    return data;
+}
+
+export async function getAllAvatars() {
+    const data = await Avatar.find();
+    return data;
+}
+
+export async function getOneAvatar(id) {
+    const data = await Avatar.findById(id);
     return data;
 }

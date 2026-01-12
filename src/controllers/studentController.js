@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { getErrorMessage } from "../utils/errorUtils.js";
-import { userService } from "../services/index.js";
+import { studentService } from "../services/index.js";
 
 const studentController = Router();
 
@@ -9,7 +9,7 @@ studentController.post("/register", async (req, res) => {
     const userData = req.body;
 
     try {
-        const user = await userService.register(userData);
+        const user = await studentService.register(userData);
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
@@ -20,7 +20,7 @@ studentController.post("/login", async (req, res) => {
     const userData = req.body;
 
     try {
-        const user = await userService.login(userData);
+        const user = await studentService.login(userData);
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
@@ -35,19 +35,40 @@ studentController.get("/links", async (req, res) => {
     //todo need params: teacherId and classId
 
     try {
-        const user = await userService.getAllStudents();
-        res.status(201).json(user);
+        const user = await studentService.getAllStudents();
+        res.status(200).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
     }
 });
 
+studentController.get("/getAllAvatars", async (req, res) => {
+    try {
+        const avatars = await studentService.getAllAvatars();
+        res.status(200).json(avatars);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
+studentController.get("/getOneAvatar/:avatarId", async (req, res) => {
+    const id = req.params.avatarId;
+    console.log(id);
+    try {
+        const avatar = await studentService.getOneAvatar(id);
+        res.status(200).json(avatar);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
+//* has to be in the bottom
 studentController.delete("/:teacherId/:studentId/delete", async (req, res) => {
     const teacherId = req.params.teacherId;
     const studentId = req.params.studentId;
 
     try {
-        const user = await userService.deleteStudent(teacherId, studentId);
+        const user = await studentService.deleteStudent(teacherId, studentId);
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
@@ -60,7 +81,11 @@ studentController.patch("/:teacherId/:studentId/edit", async (req, res) => {
     const data = req.body;
 
     try {
-        const user = await userService.editStudent(teacherId, studentId, data);
+        const user = await studentService.editStudent(
+            teacherId,
+            studentId,
+            data
+        );
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
@@ -72,7 +97,7 @@ studentController.get("/:teacherId/:studentId", async (req, res) => {
     const studentId = req.params.studentId;
 
     try {
-        const user = await userService.getOneStudent(studentId);
+        const user = await studentService.getOneStudent(studentId);
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
