@@ -62,6 +62,19 @@ studentController.get("/getOneAvatar/:avatarId", async (req, res) => {
     }
 });
 
+studentController.patch("/getOneAvatar/:studentId/edit", async (req, res) => {
+    const id = req.params.studentId;
+    const data = req.body;
+    console.log(id);
+    console.log(data);
+    try {
+        const avatar = await studentService.updateAvatar(id, data);
+        res.status(200).json(avatar);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
 //* has to be in the bottom
 studentController.delete("/:teacherId/:studentId/delete", async (req, res) => {
     const teacherId = req.params.teacherId;

@@ -105,3 +105,14 @@ export async function getOneAvatar(id) {
     const data = await Avatar.findById(id);
     return data;
 }
+
+export async function updateAvatar(id, data) {
+    console.log(id);
+    console.log(data);
+    const avatar = await Student.findByIdAndUpdate(
+        id,
+        { $set: data },
+        { new: true, runValidators: true }
+    );
+    return avatar;
+}
