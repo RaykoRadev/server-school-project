@@ -31,4 +31,15 @@ teacherController.get("/logout", (req, res) => {
     res.status(204).json({ ok: true });
 });
 
+teacherController.patch("/edit-profile", async (req, res) => {
+    const teacherId = req.user.id;
+    const data = req.body;
+    try {
+        const user = await teacherService.editCode(teacherId, data);
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
 export default teacherController;

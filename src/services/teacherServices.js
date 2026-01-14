@@ -217,3 +217,28 @@ export async function login(userData) {
         },
     };
 }
+
+export async function editCode(id, userData) {
+    const user = await Teacher.findById(id);
+
+    const isMatch = await bcrypt.compare(userData.oldCode, user.code);
+
+    if (!isMatch) {
+        throw new Error("The code missmatch!");
+    }
+
+    user.code = userData.code;
+    await user.save();
+
+    return {
+        username: user.username,
+        role: user.role,
+        _id: user.id,
+        classesIds: {
+            class1: user.classes[0].classId,
+            class2: user.classes[1].classId,
+            class3: user.classes[2].classId,
+            class4: user.classes[3].classId,
+        },
+    };
+}

@@ -63,7 +63,7 @@ studentController.get("/getOneAvatar/:avatarId", async (req, res) => {
 });
 
 studentController.patch("/getOneAvatar/:studentId/edit", async (req, res) => {
-    const id = req.params.studentId;
+    const id = req.user.id;
     const data = req.body;
     console.log(id);
     console.log(data);

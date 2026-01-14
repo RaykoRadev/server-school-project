@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 const tasksController = Router();
 
 tasksController.get("/getAllClasses/:teacherId", async (req, res) => {
-    const teacherId = req.params.teacherId;
+    const teacherId = req.user.id;
     console.log("req: ", req.user.id);
 
     try {
