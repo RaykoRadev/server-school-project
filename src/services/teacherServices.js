@@ -224,7 +224,7 @@ export async function editCode(id, userData) {
     const isMatch = await bcrypt.compare(userData.oldCode, user.code);
 
     if (!isMatch) {
-        throw new Error("The code missmatch!");
+        throw new Error("The code is wrong!");
     }
 
     user.code = userData.code;
