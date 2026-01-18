@@ -44,7 +44,7 @@ const studentSchema = new Schema(
         // 1. Move expireAt to its own top-level field
         expireAt: {
             type: Date,
-            default: () => new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days from now
+            default: () => new Date(Date.now() + 420 * 24 * 60 * 60 * 1000), // 7 months from now
             index: { expires: 0 }, // delete when this date is reached
         },
         sessions: [
@@ -59,7 +59,7 @@ const studentSchema = new Schema(
             default: {},
         },
     },
-    { timestamps: true }
+    { timestamps: true },
 );
 
 //* fFor the moment the vcode is not going to be hashed in the DB, if it is need in the feature, dont forget the needed changes in the login function in student service
