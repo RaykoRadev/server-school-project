@@ -13,7 +13,7 @@ export async function register(userData) {
     // const email = userData.email;
     const existingUser = await Teacher.findOne({ username: userData.username });
     if (existingUser) {
-        throw new Error("The email already exists!");
+        throw new Error("usernameExist");
     }
 
     const user = await Teacher.create({
@@ -195,12 +195,12 @@ export async function login(userData) {
     const user = await Teacher.findOne({ username: userData.username });
 
     if (!user) {
-        throw new Error("Invalid email or code!");
+        throw new Error("invalidUsernameOrPassword");
     }
 
     const isMatch = await bcrypt.compare(userData.code, user.code);
     if (!isMatch) {
-        throw new Error("Invalid email or code!");
+        throw new Error("invalidUsernameOrPassword");
     }
 
     const token = generateAuthToken(user);
@@ -224,7 +224,7 @@ export async function editCode(id, userData) {
     const isMatch = await bcrypt.compare(userData.oldCode, user.code);
 
     if (!isMatch) {
-        throw new Error("The code is wrong!");
+        throw new Error("codeMissmacths");
     }
 
     user.code = userData.code;

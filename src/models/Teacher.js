@@ -18,20 +18,20 @@ const classesSchema = new Schema(
         name: { type: String, required: true },
         subjects: [subjectShema],
     },
-    { _id: false }
+    { _id: false },
 );
 
 const teacherSchema = new Schema(
     {
         username: {
             type: String,
-            required: [true, "Username is required!"],
-            minLength: [4, "Username must be at least 4 characters long!"],
+            required: [true, "usernameIsReq"],
+            minLength: [4, "usernameHasTobelonger"],
         },
         code: {
             type: String,
-            required: [true, "Code is required!"],
-            minLength: [3, "Ccode must be at least 3 characters long!"],
+            required: [true, "codeIsReq"],
+            minLength: [3, "codeHasTobelonger"],
         },
         role: {
             type: String,
@@ -42,7 +42,7 @@ const teacherSchema = new Schema(
             validate: [(v) => v.length === 4],
         },
     },
-    { timestamp: true }
+    { timestamp: true },
 );
 
 teacherSchema.pre("save", async function () {

@@ -69,17 +69,17 @@ tasksController.delete(
                 teacherId,
                 classId,
                 subjectId,
-                linkId
+                linkId,
             );
             if (link.modifiedCount === 0) {
-                return res.status(404).json({ message: "Link not found" });
+                return res.status(404).json({ message: "linkNotFound" });
             }
 
-            res.status(200).json({ message: "Link deleted successfully" });
+            res.status(200).json({ message: "sucDelLink" });
         } catch (err) {
             res.status(400).json({ message: getErrorMessage(err) });
         }
-    }
+    },
 );
 
 tasksController.get(
@@ -90,28 +90,28 @@ tasksController.get(
         const subjectId = new mongoose.Types.ObjectId(req.params.subjectId);
         const linkId = new mongoose.Types.ObjectId(req.params.linkId);
 
-        console.log("teacherId: ", teacherId);
-        console.log("classId: ", classId);
-        console.log("subId: ", subjectId);
-        console.log("linkId: ", linkId);
+        // console.log("teacherId: ", teacherId);
+        // console.log("classId: ", classId);
+        // console.log("subId: ", subjectId);
+        // console.log("linkId: ", linkId);
 
         try {
             const link = await tasksService.getOneLink(
                 teacherId,
                 classId,
                 subjectId,
-                linkId
+                linkId,
             );
 
             if (!link) {
-                return res.status(404).json({ message: "Link not found" });
+                return res.status(404).json({ message: "linkNotFound" });
             }
 
             res.status(200).json(link);
         } catch (err) {
             res.status(400).json({ message: getErrorMessage(err) });
         }
-    }
+    },
 );
 
 tasksController.put("/:classId/:subjectId/:linkId/edit", async (req, res) => {

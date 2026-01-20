@@ -9,7 +9,7 @@ export async function register(userData) {
     // const email = userData.email;
     const existingUser = await Student.findOne({ username: userData.username });
     if (existingUser) {
-        throw new Error("The username already exists!");
+        throw new Error("usernameExist");
     }
 
     const user = await Student.create(userData);
@@ -30,14 +30,14 @@ export async function login(userData) {
     const user = await Student.findOne({ username: userData.username });
 
     if (!user) {
-        throw new Error("Invalid username or code!");
+        throw new Error("invalidUsernameOrPassword");
     }
 
     //* If hashing in DB is needed swithe the bottom 2 rows
     // const isMatch = await bcrypt.compare(userData.code, user.code);
     const isMatch = userData.code === user.code;
     if (!isMatch) {
-        throw new Error("Invalid username or code!");
+        throw new Error("invalidUsernameOrPassword");
     }
 
     user.sessions.unshift({ loginAt: new Date() });
@@ -64,7 +64,7 @@ export async function getAllStudents(params) {
         },
         {
             "classes.$": 1,
-        }
+        },
     );
 
     return data;
@@ -84,7 +84,7 @@ export async function editStudent(teacherId, studentId, studentData) {
             _id: studentId,
             teacherId: teacherId,
         },
-        studentData
+        studentData,
     );
     return data;
 }
@@ -112,7 +112,7 @@ export async function updateAvatar(id, data) {
     const avatar = await Student.findByIdAndUpdate(
         id,
         { $set: data },
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
     );
     return avatar;
 }
