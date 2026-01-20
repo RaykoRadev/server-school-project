@@ -44,7 +44,11 @@ const studentSchema = new Schema(
         // 1. Move expireAt to its own top-level field
         expireAt: {
             type: Date,
-            default: () => new Date(Date.now() + 420 * 24 * 60 * 60 * 1000), // 7 months from now
+            default: () => {
+                const date = new Date();
+                date.setMonth(date.getMonth() + 6);
+                return date;
+            }, // 7 months from now
             index: { expires: 0 }, // delete when this date is reached
         },
         sessions: [
