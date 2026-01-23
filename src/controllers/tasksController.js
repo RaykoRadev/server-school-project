@@ -2,20 +2,25 @@ import { Router } from "express";
 import { getErrorMessage } from "../utils/errorUtils.js";
 import { tasksService } from "../services/index.js";
 import mongoose from "mongoose";
+import checkSubscription from "../middlewares/checkSubscription.js";
 
 const tasksController = Router();
 
-tasksController.get("/getAllClasses/:teacherId", async (req, res) => {
-    const teacherId = req.user.id;
-    console.log("req: ", req.user.id);
+tasksController.get(
+    "/getAllClasses/:teacherId",
+    checkSubscription,
+    async (req, res) => {
+        const teacherId = req.user.id;
+        console.log("req: ", req.user.id);
 
-    try {
-        const data = await tasksService.getAllClasses(teacherId);
-        res.json(data);
-    } catch (err) {
-        res.status(400).json({ message: getErrorMessage(err) });
-    }
-});
+        try {
+            const data = await tasksService.getAllClasses(teacherId);
+            res.json(data);
+        } catch (err) {
+            res.status(400).json({ message: getErrorMessage(err) });
+        }
+    },
+);
 
 tasksController.get("/getOneClass/:teacherId/:classId", async (req, res) => {
     const teacherId = req.params.teacherId;
@@ -30,6 +35,7 @@ tasksController.get("/getOneClass/:teacherId/:classId", async (req, res) => {
     }
 });
 
+//todo add checkSubscription to all req from the teacher but after checking if it works properly
 tasksController.get("/getAllStudents", async (req, res) => {
     const teacherId = req.user.id;
     console.log("req: ", req.user.id);

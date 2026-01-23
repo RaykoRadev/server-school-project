@@ -27,7 +27,9 @@ export async function register(userData) {
 }
 
 export async function login(userData) {
-    const user = await Student.findOne({ username: userData.username });
+    const user = await Student.findOne({
+        username: userData.username,
+    }).populate("teacherId", "subscriptionStatus");
 
     if (!user) {
         throw new Error("invalidUsernameOrPassword");
@@ -39,6 +41,13 @@ export async function login(userData) {
     if (!isMatch) {
         throw new Error("invalidUsernameOrPassword");
     }
+
+    if (user.teacherId.subscriptionStatus !== "active") {
+        user.subActive = false;
+        throw new Error("subTeachExpired");
+    }
+
+    user.subActive = true;
 
     user.sessions.unshift({ loginAt: new Date() });
     await user.save();

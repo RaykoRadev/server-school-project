@@ -2,6 +2,8 @@ import { Router } from "express";
 
 import { getErrorMessage } from "../utils/errorUtils.js";
 import { teacherService } from "../services/index.js";
+import { renewSub } from "../services/teacherServices.js";
+import checkSubscription from "../middlewares/checkSubscription.js";
 
 const teacherController = Router();
 
@@ -16,7 +18,7 @@ teacherController.post("/register", async (req, res) => {
     }
 });
 
-teacherController.post("/login", async (req, res) => {
+teacherController.post("/login", checkSubscription, async (req, res) => {
     const userData = req.body;
 
     try {
@@ -39,6 +41,19 @@ teacherController.patch("/edit-profile", async (req, res) => {
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ message: getErrorMessage(err) });
+    }
+});
+
+teacherController.post("/renew/:teacherId", async (req, res) => {
+    const teacherId = req.params.teacherId;
+    try {
+        const user = await renewSub(teacherId);
+        res.status(200).json({
+            message: "Account reactivated successfully",
+            expiresAt: user.subscriptionExpiresAt,
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Reactivation failed" });
     }
 });
 

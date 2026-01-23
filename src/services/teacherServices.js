@@ -209,6 +209,8 @@ export async function login(userData) {
         username: user.username,
         role: user.role,
         _id: user.id,
+        subscriptionExpiresAt: user.subscriptionExpiresAt,
+        status: user.subscriptionStatus,
         classesIds: {
             class1: user.classes[0].classId,
             class2: user.classes[1].classId,
@@ -234,6 +236,7 @@ export async function editCode(id, userData) {
         username: user.username,
         role: user.role,
         _id: user.id,
+        subscriptionExpiresAt: user.subscriptionExpiresAt,
         classesIds: {
             class1: user.classes[0].classId,
             class2: user.classes[1].classId,
@@ -241,4 +244,22 @@ export async function editCode(id, userData) {
             class4: user.classes[3].classId,
         },
     };
+}
+
+export async function renewSub(teacherId) {
+    const user = await Teacher.findById(teacherId);
+
+    const now = new Date();
+    const currentExpDate = user.subscriptionExpiresAt || now;
+    const newExpiration = new Date(
+        Math.max(currentExpDate.getTime(), now.getTime()),
+    );
+
+    // newExpiration.setDate(newExpiration.getDate() + 1); // the number is with how many days to be extended the subscription
+    newExpiration.setFullYear(newExpiration.getFullYear() + 1);
+    user.subscriptionExpiresAt = newExpiration;
+    user.subscriptionStatus = "active";
+
+    await user.save();
+    return user;
 }

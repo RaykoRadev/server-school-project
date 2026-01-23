@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { getErrorMessage } from "../utils/errorUtils.js";
 import { studentService } from "../services/index.js";
+import checkSubscription from "../middlewares/checkSubscription.js";
 
 const studentController = Router();
 
@@ -97,7 +98,7 @@ studentController.patch("/:teacherId/:studentId/edit", async (req, res) => {
         const user = await studentService.editStudent(
             teacherId,
             studentId,
-            data
+            data,
         );
         res.status(201).json(user);
     } catch (err) {
