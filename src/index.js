@@ -6,6 +6,7 @@ import routes from "./routes.js";
 import initDatabase from "./config/dbConfing.js";
 import { authMiddleware } from "./middlewares/authmiddleware.js";
 import globalErrorHandler from "./middlewares/errorHandler.js";
+import "./jobs/subscriptionCron.js";
 
 const app = express();
 
