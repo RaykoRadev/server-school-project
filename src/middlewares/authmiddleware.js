@@ -20,3 +20,16 @@ export function authMiddleware(req, res, next) {
         res.status(400).json({ message: getErrorMessage(err) });
     }
 }
+export function isAuth(req, res, next) {
+    if (!req.isAuthenticated) {
+        return res.status(400).json({ message: getErrorMessage(err) });
+    }
+    next();
+}
+
+export function isGuest(req, res, next) {
+    if (req.isAuthenticated) {
+        return res.status(400).json({ message: getErrorMessage(err) });
+    }
+    next();
+}
