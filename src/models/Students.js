@@ -36,6 +36,11 @@ const studentSchema = new Schema(
             required: true,
         },
 
+        subActive: {
+            type: Boolean,
+            default: false,
+        },
+
         avatar: {
             type: String,
             default:

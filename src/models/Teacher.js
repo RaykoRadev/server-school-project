@@ -41,6 +41,12 @@ const teacherSchema = new Schema(
             type: [classesSchema],
             validate: [(v) => v.length === 4],
         },
+        subscriptionStatus: {
+            type: String,
+            enum: ["active", "expired", "canceled"],
+            default: "active",
+        },
+        subscriptionExpiresAt: Date,
     },
     { timestamp: true },
 );
