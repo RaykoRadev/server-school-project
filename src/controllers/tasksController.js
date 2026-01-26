@@ -3,6 +3,7 @@ import { getErrorMessage } from "../utils/errorUtils.js";
 import { tasksService } from "../services/index.js";
 import mongoose from "mongoose";
 import checkSubscription from "../middlewares/checkSubscription.js";
+import { isAuth } from "../middlewares/authmiddleware.js";
 
 const tasksController = Router();
 
@@ -36,7 +37,7 @@ tasksController.get("/getOneClass/:teacherId/:classId", async (req, res) => {
 });
 
 //todo add checkSubscription to all req from the teacher but after checking if it works properly
-tasksController.get("/getAllStudents", async (req, res) => {
+tasksController.get("/getAllStudents", isAuth, async (req, res) => {
     const teacherId = req.user.id;
     // console.log("req: ", req.user.id);
 
@@ -49,7 +50,7 @@ tasksController.get("/getAllStudents", async (req, res) => {
 });
 
 //creating links
-tasksController.post("/createLink", async (req, res) => {
+tasksController.post("/createLink", isAuth, async (req, res) => {
     if (req.user.role !== "teacher") {
         throw new Error("Forbidden");
     }
@@ -64,6 +65,7 @@ tasksController.post("/createLink", async (req, res) => {
 
 tasksController.delete(
     "/:classId/:subjectId/:linkId/delete",
+    isAuth,
     async (req, res) => {
         const teacherId = req.user.id;
         const classId = req.params.classId;
@@ -90,6 +92,7 @@ tasksController.delete(
 
 tasksController.get(
     "/getOneLink/:classId/:subjectId/:linkId",
+    isAuth,
     async (req, res) => {
         const teacherId = new mongoose.Types.ObjectId(req.user.id);
         const classId = new mongoose.Types.ObjectId(req.params.classId);
@@ -120,19 +123,27 @@ tasksController.get(
     },
 );
 
-tasksController.put("/:classId/:subjectId/:linkId/edit", async (req, res) => {
-    const teacherId = req.user.id;
-    const linkId = req.params.linkId;
-    const data = req.body;
+tasksController.put(
+    "/:classId/:subjectId/:linkId/edit",
+    isAuth,
+    async (req, res) => {
+        const teacherId = req.user.id;
+        const linkId = req.params.linkId;
+        const data = req.body;
 
-    try {
-        const link = await tasksService.editOneLink(teacherId, linkId, data);
+        try {
+            const link = await tasksService.editOneLink(
+                teacherId,
+                linkId,
+                data,
+            );
 
-        res.status(200).json(link);
-    } catch (err) {
-        res.status(400).json({ message: getErrorMessage(err) });
-    }
-});
+            res.status(200).json(link);
+        } catch (err) {
+            res.status(400).json({ message: getErrorMessage(err) });
+        }
+    },
+);
 
 export default tasksController;
 

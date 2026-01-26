@@ -4,6 +4,7 @@ import { getErrorMessage } from "../utils/errorUtils.js";
 import { teacherService } from "../services/index.js";
 import { renewSub } from "../services/teacherServices.js";
 import checkSubscription from "../middlewares/checkSubscription.js";
+import { isAuth, isGuest } from "../middlewares/authmiddleware.js";
 
 const teacherController = Router();
 
@@ -18,22 +19,27 @@ teacherController.post("/register", async (req, res) => {
     }
 });
 
-teacherController.post("/login", checkSubscription, async (req, res) => {
-    const userData = req.body;
+teacherController.post(
+    "/login",
+    isGuest,
+    checkSubscription,
+    async (req, res) => {
+        const userData = req.body;
 
-    try {
-        const user = await teacherService.login(userData);
-        res.status(201).json(user);
-    } catch (err) {
-        res.status(400).json({ message: getErrorMessage(err) });
-    }
-});
+        try {
+            const user = await teacherService.login(userData);
+            res.status(201).json(user);
+        } catch (err) {
+            res.status(400).json({ message: getErrorMessage(err) });
+        }
+    },
+);
 
 teacherController.get("/logout", (req, res) => {
     res.status(204).json({ ok: true });
 });
 
-teacherController.patch("/edit-profile", async (req, res) => {
+teacherController.patch("/edit-profile", isAuth, async (req, res) => {
     const teacherId = req.user.id;
     const data = req.body;
     try {
