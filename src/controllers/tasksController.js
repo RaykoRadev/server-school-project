@@ -11,7 +11,7 @@ tasksController.get(
     checkSubscription,
     async (req, res) => {
         const teacherId = req.user.id;
-        console.log("req: ", req.user.id);
+        // console.log("req: ", req.user.id);
 
         try {
             const data = await tasksService.getAllClasses(teacherId);
@@ -25,7 +25,7 @@ tasksController.get(
 tasksController.get("/getOneClass/:teacherId/:classId", async (req, res) => {
     const teacherId = req.params.teacherId;
     const classId = req.params.classId;
-    console.log("req: ", req.user.id);
+    // console.log("req: ", req.user.id);
 
     try {
         const data = await tasksService.getOneClass(teacherId, classId);
@@ -38,7 +38,7 @@ tasksController.get("/getOneClass/:teacherId/:classId", async (req, res) => {
 //todo add checkSubscription to all req from the teacher but after checking if it works properly
 tasksController.get("/getAllStudents", async (req, res) => {
     const teacherId = req.user.id;
-    console.log("req: ", req.user.id);
+    // console.log("req: ", req.user.id);
 
     try {
         const data = await tasksService.getAllStudents(teacherId);

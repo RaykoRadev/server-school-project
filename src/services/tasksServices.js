@@ -16,7 +16,7 @@ export async function getOneClass(teacherId, classId) {
         {
             "classes.$": 1,
             _id: 0,
-        }
+        },
     );
 
     return data;
@@ -48,7 +48,7 @@ export async function createOne(linksData) {
                 { "c.classId": linksData.classId },
                 { "s.name": linksData.subject },
             ],
-        }
+        },
     );
 
     return data;
@@ -78,7 +78,7 @@ export async function getOneLink(teacherId, classId, subjectId, linkId) {
 }
 
 export async function editOneLink(teacherId, linkId, data) {
-    console.log(data);
+    // console.log(data);
     const link = await Teacher.updateOne(
         {
             _id: teacherId,
@@ -95,7 +95,7 @@ export async function editOneLink(teacherId, linkId, data) {
                 { "s.name": data.subject },
                 { "l._id": linkId },
             ],
-        }
+        },
     );
 
     return link;
@@ -113,7 +113,7 @@ export async function deleteOne(teacherId, classId, subjectId, linkId) {
         },
         {
             arrayFilters: [{ "c.classId": classId }, { "s._id": subjectId }],
-        }
+        },
     );
 
     return data;

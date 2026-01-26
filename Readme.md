@@ -4,7 +4,7 @@ This is an **Express.js** server application implementing a backend API for a **
 
 It manages users and a pets collection (user-generated content), using **MongoDB** with **Mongoose** for data persistence.
 
-Deployed version on: https://server-school-project-production.up.railway.app
+<!-- Deployed version on: https://server-school-project-production.up.railway.app -->
 
 schedule (translated to CRON)
 Weekdays (Mon–Fri): 13:00–23:00
@@ -19,16 +19,16 @@ Weekends (Sat–Sun): 08:00–23:00
 
 ## Features
 
--   User authentication
--   Secure password hashing with **bcrypt**
+- User authentication
+- Secure password hashing with **bcrypt**
 
 ---
 
 ## Project Structure
 
--   **Models**: Defines Mongoose schemas and models for the entities in the system.
--   **Controllers**: Handle API logic (not shown here).
--   **Routes**: API endpoints (not shown here).
+- **Models**: Defines Mongoose schemas and models for the entities in the system.
+- **Controllers**: Handle API logic (not shown here).
+- **Routes**: API endpoints (not shown here).
 
 ---
 
@@ -36,32 +36,34 @@ Weekends (Sat–Sun): 08:00–23:00
 
 ### Student Schema
 
--   `username`: min length enforced
--   `code`: hashed string, min length enforced
--   Codes are hashed automatically before saving
--   Request returns: `{
+- `username`: min length enforced
+- `code`: hashed string, min length enforced
+- Codes are hashed automatically before saving
+- Request returns: `{
   _id: string,
   accessToken: string,
   role: string,
   username: string,
   teacherId: ObjectId
   classId: ObjectId,
+  subActive: Boolean,
+  avatar: string
   expiredAt: date,
   sesions: Array with {loginAt, durationSeconds?}
   subjectUsage: Object
 }`
--   register link: `.../student/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
--   login link: `.../student/login` (body: {username: ..., code: ...})
--   delete link: `.../:teacherId/:studentId/delete`
--   edit link: `.../student/:teacherId/:studentId/edit` (body: {username: ..., code: ...})
--   get one student link: `.../student/:teacherId/:studentId`
+- register student link: `.../student/register` (body: {username: ..., code: ..., teacherId: teacherId, classId: teacherId})
+- login link: `.../student/login` (body: {username: ..., code: ...})
+- delete link: `.../:teacherId/:studentId/delete`
+- edit link: `.../student/:teacherId/:studentId/edit` (body: {username: ..., code: ...})
+- get one student link: `.../student/:teacherId/:studentId`
 
 ### Teacher Schema
 
--   `username`: min length enforced
--   `code`: hashed string, min length enforced
--   Codes are hashed automatically before saving
--   DB retyrns: `{
+- `username`: min length enforced
+- `code`: hashed string, min length enforced
+- Codes are hashed automatically before saving
+- DB retyrns: `{
   username: string,
   code: string,
   role: 'teacher',
@@ -70,17 +72,21 @@ Weekends (Sat–Sun): 08:00–23:00
   subjects: [{text: string, link: string}],
   \_id: ObjectId,
   classId: ObjectId
-  },]
+  },],
+  subscriptionStatus: string,
+  subscriptionExpiresAt: date
 }`
 
--   Request returns: `{
+- Request returns: `{
   _id: string,
   accessToken: string,
   role: string,
   username: string
 }`
--   register link: `.../admin/register` (body: {username: ...., code:....}) throuth postman
--   register link: `.../teacher/login` (body: {username: ...., code:....})
+- register link: `.../admin/register` (body: {username: ...., code:....}) throuth postman
+- login link: `.../teacher/login` (body: {username: ...., code:....})
+- change code `.../edit-profile`
+- renew subscription `.../renew/:teacherId` {"message": "Account reactivated successfully", "expiresAt": ... } throuth postman
 
 ### Links:
 

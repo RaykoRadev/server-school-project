@@ -54,7 +54,7 @@ studentController.get("/getAllAvatars", async (req, res) => {
 
 studentController.get("/getOneAvatar/:avatarId", async (req, res) => {
     const id = req.params.avatarId;
-    console.log(id);
+    // console.log(id);
     try {
         const avatar = await studentService.getOneAvatar(id);
         res.status(200).json(avatar);
@@ -66,8 +66,8 @@ studentController.get("/getOneAvatar/:avatarId", async (req, res) => {
 studentController.patch("/getOneAvatar/:studentId/edit", async (req, res) => {
     const id = req.user.id;
     const data = req.body;
-    console.log(id);
-    console.log(data);
+    // console.log(id);
+    // console.log(data);
     try {
         const avatar = await studentService.updateAvatar(id, data);
         res.status(200).json(avatar);

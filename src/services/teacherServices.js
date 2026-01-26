@@ -178,7 +178,7 @@ export async function register(userData) {
     });
     const token = generateAuthToken(user);
 
-    console.log("teacher: ", user);
+    // console.log("teacher: ", user);
     return {
         accessToken: token,
         username: user.username,

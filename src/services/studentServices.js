@@ -52,7 +52,7 @@ export async function login(userData) {
     user.sessions.unshift({ loginAt: new Date() });
     await user.save();
 
-    console.log(user);
+    // console.log(user);
     const token = generateAuthToken(user);
     return {
         accessToken: token,
@@ -116,8 +116,8 @@ export async function getOneAvatar(id) {
 }
 
 export async function updateAvatar(id, data) {
-    console.log(id);
-    console.log(data);
+    // console.log(id);
+    // console.log(data);
     const avatar = await Student.findByIdAndUpdate(
         id,
         { $set: data },
