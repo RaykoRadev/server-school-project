@@ -10,9 +10,9 @@ import "./jobs/subscriptionCron.js";
 
 const app = express();
 
-if (process.env.NODE_ENV !== "production") {
-    initDatabase();
-}
+// if (process.env.NODE_ENV !== "production") {
+// }
+initDatabase();
 
 app.use(cors());
 
