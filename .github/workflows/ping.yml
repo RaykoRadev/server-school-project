@@ -14,4 +14,4 @@ jobs:
         steps:
             - name: Ping Railway Server
               run: |
-                  curl -m 10 -s https://server-school-project.onrender.com > /dev/null
+                  curl -m 10 -s https://server-school-project.onrender.com/health > /dev/null || true
