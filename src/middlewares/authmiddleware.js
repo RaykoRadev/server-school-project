@@ -17,7 +17,7 @@ export function authMiddleware(req, res, next) {
 
         return next();
     } catch (err) {
-        res.status(400).json({ message: getErrorMessage(err) });
+        res.status(401).json({ message: getErrorMessage(err) });
     }
 }
 export function isAuth(req, res, next) {
